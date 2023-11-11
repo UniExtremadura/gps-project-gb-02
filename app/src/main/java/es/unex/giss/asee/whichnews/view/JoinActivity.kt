@@ -23,6 +23,7 @@ class JoinActivity : AppCompatActivity() {
         //views initialization and listeners
         setUpUI()
         setUpListeners()
+
     }
 
     private fun setUpUI() {
