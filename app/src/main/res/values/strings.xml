@@ -1,3 +1,14 @@
 <resources>
-    <string name="app_name">WhichNews</string>
+    <string name="app_name">Which News?</string>
+    <string name="user_string">User</string>
+    <string name="registrarse_string">Not registered yet? Sign up here.</string>
+    <string name="createaccount_string">Create Account</string>
+    <string name="password_string">Password</string>
+    <string name="tv_login">LOG IN</string>
+    <string name="valid_user_msg">Credentials valid!</string>
+    <string name="invalid_user_msg">Credentials no valid</string>
+    <string name="tv_register">join</string>
+    <string name="repeat_password">repeat password</string>
+    <string name="visit_website">trakt.tv</string>
+    <string name="greeting">Hello, %s!</string>
 </resources>
