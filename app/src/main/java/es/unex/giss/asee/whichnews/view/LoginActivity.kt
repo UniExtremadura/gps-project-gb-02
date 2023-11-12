@@ -8,6 +8,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import es.unex.giss.asee.whichnews.data.models.User
+import es.unex.giss.asee.whichnews.database.WhichNewsDatabase
 import es.unex.giss.asee.whichnews.databinding.ActivityLoginBinding
 import es.unex.giss.asee.whichnews.utils.CredentialCheck
 import kotlinx.coroutines.launch
@@ -18,6 +19,7 @@ class LoginActivity : AppCompatActivity() {
     //binding sirve para conectar la capa de usuario con el backend
     //en kotlin no se permiten variables nulas, en cuyo caso, hay que indicarlo expresamente
     private lateinit var binding: ActivityLoginBinding
+    private lateinit var db: WhichNewsDatabase
 
     private val responseLauncher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
@@ -39,6 +41,9 @@ class LoginActivity : AppCompatActivity() {
         //view binding and set content view
         binding = ActivityLoginBinding.inflate(layoutInflater) //se establece el layout de nuestra activity
         setContentView(binding.root)
+
+        //database instance reference
+        db = WhichNewsDatabase.getInstance(applicationContext)!!
 
         //views initialization and listeners
         setUpUI() //configurar la interfaz de usuario, darle valores a las vistas que tenemos en la interfaz
@@ -82,7 +87,15 @@ class LoginActivity : AppCompatActivity() {
             binding.etPassword.text.toString()
         )
         if (!check.fail){
-            //TODO CHECK DATABASE
+            lifecycleScope.launch{
+                val user = db?.userDao()?.findByName(binding.etUsername.text.toString())
+                if (user != null) {
+                    val check = CredentialCheck.passwordOk(binding.etPassword.text.toString(), user.password)
+                    if (check.fail) notifyInvalidCredentials(check.msg)
+                    else navigateToHomeActivity(user!!, check.msg)
+                }
+                else notifyInvalidCredentials("Invalid username")
+            }
         }
         else notifyInvalidCredentials(check.msg)
     }
