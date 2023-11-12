@@ -25,4 +25,7 @@ interface NewsLikeDao {
 
     @Query("DELETE FROM news_like WHERE newsId = :newsId AND userId = :userId")
     fun deleteNewsLike(newsId: String, userId: Long)
+
+    @Query("SELECT COUNT(*) FROM news_like WHERE newsId = :newsId AND userId = :userId")
+    fun getLikeCountForAUser(newsId: String, userId: Long): Int
 }
