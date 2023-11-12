@@ -60,6 +60,7 @@ class LoginActivity : AppCompatActivity() {
         with(binding) {
             btLogin.setOnClickListener {checkLogin() }
             btJoin.setOnClickListener {navigateToJoinActivity() }
+            btPasswordForget.setOnClickListener { navigateToForgetPasswordActivity() }
         }
 
     }
@@ -69,6 +70,11 @@ class LoginActivity : AppCompatActivity() {
         //Se crea un nuevo intent para ir de una pantalla a otra
         val intent = Intent(this, WelcomeActivity::class.java)
         intent.putExtra(WelcomeActivity.LOGIN_USER, user) //Le pasamos el usuario para que lo muestre por pantalla
+        startActivity(intent)
+    }
+
+    private fun navigateToForgetPasswordActivity(){
+        val intent = Intent(this, PasswordForgetActivity::class.java)
         startActivity(intent)
     }
 
@@ -82,22 +88,22 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun checkLogin(){
-        val check = CredentialCheck.login(
-            binding.etUsername.text.toString(),
-            binding.etPassword.text.toString()
-        )
-        if (!check.fail){
-            lifecycleScope.launch{
-                val user = db?.userDao()?.findByName(binding.etUsername.text.toString())
-                if (user != null) {
-                    val check = CredentialCheck.passwordOk(binding.etPassword.text.toString(), user.password)
-                    if (check.fail) notifyInvalidCredentials(check.msg)
-                    else navigateToHomeActivity(user!!, check.msg)
+            val check = CredentialCheck.login(
+                binding.etUsername.text.toString(),
+                binding.etPassword.text.toString()
+            )
+            if (!check.fail){
+                lifecycleScope.launch{
+                    val user = db?.userDao()?.findByName(binding.etUsername.text.toString())
+                    if (user != null) {
+                        val check = CredentialCheck.passwordOk(binding.etPassword.text.toString(), user.password)
+                        if (check.fail) notifyInvalidCredentials(check.msg)
+                        else navigateToHomeActivity(user!!, check.msg)
+                    }
+                    else notifyInvalidCredentials("Invalid username")
                 }
-                else notifyInvalidCredentials("Invalid username")
             }
-        }
-        else notifyInvalidCredentials(check.msg)
+            else notifyInvalidCredentials(check.msg)
     }
 
 }
