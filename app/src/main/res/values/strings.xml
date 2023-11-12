@@ -11,4 +11,6 @@
     <string name="repeat_password">repeat password</string>
     <string name="visit_website">trakt.tv</string>
     <string name="greeting">Hello, %s!</string>
+    <string name="password_forget">I forgot my password.</string>
+    <string name="introduce_email">Introduce your recovery email</string>
 </resources>
