@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#191C2E"
+    android:paddingHorizontal="10dp"
+    android:paddingVertical="50dp"
+    tools:context="es.unex.giss.asee.whichnews.view.JoinActivity">
+
+    <EditText
+        android:id="@+id/et_firstname"
+        android:layout_width="142dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="120dp"
+        android:backgroundTint="#ED3257"
+        android:ems="10"
+        android:fontFamily="@font/open_sans_semibold"
+        android:gravity="start"
+        android:hint="First Name"
+        android:textAlignment="viewStart"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints"
+        tools:textColorHint="#7C7C7C" />
+
+    <EditText
+        android:id="@+id/et_user"
+        android:layout_width="142dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="180dp"
+        android:backgroundTint="#ED3257"
+        android:ems="10"
+        android:fontFamily="@font/open_sans_semibold"
+        android:gravity="start"
+        android:hint="User"
+        android:textAlignment="viewStart"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="@+id/et_firstname"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints"
+        tools:textColorHint="#7C7C7C" />
+
+    <CheckBox
+        android:id="@+id/et_conditions"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="420dp"
+        android:buttonTint="#7C7C7C"
+        android:fontFamily="@font/open_sans_semibold"
+        android:text="I agree terms and conditions"
+        android:textColor="#7C7C7C"
+        android:textColorHint="#FFFFFF"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="@+id/et_repeatpassword"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints" />
+
+    <EditText
+        android:id="@+id/et_repeatpassword"
+        android:layout_width="250dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="360dp"
+        android:backgroundTint="#ED3257"
+        android:ems="10"
+        android:fontFamily="@font/open_sans_semibold"
+        android:gravity="start"
+        android:hint="Repeat Password"
+        android:inputType="textPassword"
+        android:textAlignment="viewStart"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="@+id/et_email"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints"
+        tools:textColorHint="#7C7C7C" />
+
+    <EditText
+        android:id="@+id/et_password"
+        android:layout_width="250dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="300dp"
+        android:backgroundTint="#ED3257"
+        android:ems="10"
+        android:fontFamily="@font/open_sans_semibold"
+        android:gravity="start"
+        android:hint="Password"
+        android:inputType="textPassword"
+        android:textAlignment="viewStart"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="@+id/et_email"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints"
+        tools:textColorHint="#7C7C7C" />
+
+    <EditText
+        android:id="@+id/et_email"
+        android:layout_width="250dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="240dp"
+        android:backgroundTint="#ED3257"
+        android:fontFamily="@font/open_sans_semibold"
+        android:gravity="start"
+        android:hint="Email"
+        android:inputType="textEmailAddress"
+        android:textAlignment="viewStart"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="@+id/et_firstname"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints"
+        tools:textColorHint="#7C7C7C" />
+
+    <EditText
+        android:id="@+id/et_secondname"
+        android:layout_width="142dp"
+        android:layout_height="45dp"
+        android:layout_marginEnd="40dp"
+        android:backgroundTint="#ED3257"
+        android:ems="10"
+        android:fontFamily="@font/open_sans_semibold"
+        android:gravity="start"
+        android:hint="Second Name"
+        android:textAlignment="viewStart"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/et_firstname"
+        tools:ignore="MissingConstraints"
+        tools:textColorHint="#7C7C7C" />
+
+
+    <TextView
+        android:id="@+id/bt_join"
+        android:layout_width="324dp"
+        android:layout_height="52dp"
+        android:fontFamily="@font/open_sans_extrabold"
+        android:gravity="start"
+        android:hint="@string/createaccount_string"
+        android:textAlignment="center"
+        android:textColor="#FFFFFF"
+        android:textSize="24sp"
+        tools:ignore="MissingConstraints,RtlCompat"
+        tools:layout_editor_absoluteX="-57dp"
+        tools:layout_editor_absoluteY="33dp"
+        tools:textColorHint="#ED3257" />
+
+    <Button
+        android:id="@+id/bt_sign"
+        android:layout_width="240dp"
+        android:layout_height="51dp"
+        android:backgroundTint="#ED3257"
+        android:fontFamily="@font/open_sans_extrabold"
+        android:text="Sign up"
+        app:layout_constraintEnd_toEndOf="@+id/et_secondname"
+        app:layout_constraintHorizontal_bias="0.492"
+        app:layout_constraintStart_toStartOf="@+id/et_repeatpassword"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteY="535dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
