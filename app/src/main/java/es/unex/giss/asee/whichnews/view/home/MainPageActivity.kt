@@ -13,7 +13,6 @@ class MainPageActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainPageBinding
 
-
     private lateinit var newsFragment: NewsFragment
     private lateinit var trendingFragment: TrendingFragment
     private lateinit var favoritesFragment: FavoritesFragment

@@ -70,7 +70,6 @@ class NewsFragment : Fragment() {
         }
     }
 
-    //SOCITANDO DATOS A LA API
     private fun getTopHeadline(){
 
         val sharedPrefs = activity?.getSharedPreferences("Filters", Context.MODE_PRIVATE)
@@ -89,6 +88,26 @@ class NewsFragment : Fragment() {
             country = "us",
             category = categoriesParam
         )
+
+        // mostrar los resultados
+        call.enqueue(object : Callback<NewsResponse> {
+            override fun onResponse(call: Call<NewsResponse>, response: Response<NewsResponse>) {
+                if (response.isSuccessful) {
+                    val newsResponse: NewsResponse? = response.body()
+                    newsResponse?.articles?.forEach { article ->
+                        Log.d("NEWS_FRAGMENT", "Título: ${article.title}")
+                    }
+                } else {
+
+                    Log.e("NEWS_FRAGMENT", "Response error. State code: ${response.code()}")
+                    Log.e("NEWS_FRAGMENT", "Response Body: ${response.errorBody()?.string()}")
+                }
+            }
+
+            override fun onFailure(call: Call<NewsResponse>, t: Throwable) {
+                Log.e("NEWS_FRAGMENT", "Error on API call: ${t.message}")
+            }
+        })
 
     }
 
