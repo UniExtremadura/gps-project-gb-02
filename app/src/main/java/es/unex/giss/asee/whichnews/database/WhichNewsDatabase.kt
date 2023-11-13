@@ -5,24 +5,28 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import es.unex.giss.asee.whichnews.data.models.User
+import es.unex.giss.asee.whichnews.data.models.NewsLike
 
-@Database(entities = [User::class], version = 1)
+@Database(entities = [User::class, NewsLike::class], version = 2, exportSchema = false)
 abstract class WhichNewsDatabase : RoomDatabase() {
     abstract fun userDao(): UserDao
+    abstract fun newsLikeDao(): NewsLikeDao
 
     companion object {
         private var INSTANCE: WhichNewsDatabase? = null
-        fun getInstance(context: Context): WhichNewsDatabase? {
-            if (INSTANCE == null) {
-                synchronized(WhichNewsDatabase::class) {
+
+        fun getInstance(context: Context): WhichNewsDatabase {
+            synchronized(WhichNewsDatabase::class) {
+                if (INSTANCE == null) {
                     INSTANCE = Room.databaseBuilder(
-                        context,
+                        context.applicationContext,
                         WhichNewsDatabase::class.java, "whichnews.db"
                     ).build()
                 }
+                return INSTANCE as WhichNewsDatabase
             }
-            return INSTANCE
         }
+
         fun destroyInstance() {
             INSTANCE = null
         }
