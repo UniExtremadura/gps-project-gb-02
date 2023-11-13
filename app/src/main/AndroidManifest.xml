@@ -20,7 +20,7 @@
             android:exported="false" />
         <activity
             android:name=".view.home.MainPageActivity"
-            android:exported="false">
+            android:exported="false" />
         <activity
             android:name=".view.LoginActivity"
             android:exported="true">
@@ -35,6 +35,9 @@
             android:exported="false" />
         <activity
             android:name=".view.WelcomeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.ReviewsActivity"
             android:exported="false" />
     </application>
 

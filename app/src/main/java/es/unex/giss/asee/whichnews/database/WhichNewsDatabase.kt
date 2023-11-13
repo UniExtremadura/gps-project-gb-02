@@ -6,11 +6,13 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import es.unex.giss.asee.whichnews.data.models.User
 import es.unex.giss.asee.whichnews.data.models.NewsLike
+import es.unex.giss.asee.whichnews.data.models.Review
 
-@Database(entities = [User::class, NewsLike::class], version = 2, exportSchema = false)
+@Database(entities = [User::class, NewsLike::class, Review::class], version = 3, exportSchema = false)
 abstract class WhichNewsDatabase : RoomDatabase() {
     abstract fun userDao(): UserDao
     abstract fun newsLikeDao(): NewsLikeDao
+    abstract fun reviewDao(): ReviewDao
 
     companion object {
         private var INSTANCE: WhichNewsDatabase? = null
