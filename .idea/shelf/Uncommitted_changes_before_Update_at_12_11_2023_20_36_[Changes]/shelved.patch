@@ -1,0 +1,362 @@
+Index: .idea/inspectionProfiles/Project_Default.xml
+===================================================================
+diff --git a/.idea/inspectionProfiles/Project_Default.xml b/.idea/inspectionProfiles/Project_Default.xml
+deleted file mode 100644
+--- a/.idea/inspectionProfiles/Project_Default.xml	(revision 87e29ae44b4ef10d9562fb80b8cccb3533265928)
++++ /dev/null	(revision 87e29ae44b4ef10d9562fb80b8cccb3533265928)
+@@ -1,41 +0,0 @@
+-<component name="InspectionProjectProfileManager">
+-  <profile version="1.0">
+-    <option name="myName" value="Project Default" />
+-    <inspection_tool class="PreviewAnnotationInFunctionWithParameters" enabled="true" level="ERROR" enabled_by_default="true">
+-      <option name="composableFile" value="true" />
+-      <option name="previewFile" value="true" />
+-    </inspection_tool>
+-    <inspection_tool class="PreviewApiLevelMustBeValid" enabled="true" level="ERROR" enabled_by_default="true">
+-      <option name="composableFile" value="true" />
+-      <option name="previewFile" value="true" />
+-    </inspection_tool>
+-    <inspection_tool class="PreviewDimensionRespectsLimit" enabled="true" level="WARNING" enabled_by_default="true">
+-      <option name="composableFile" value="true" />
+-      <option name="previewFile" value="true" />
+-    </inspection_tool>
+-    <inspection_tool class="PreviewFontScaleMustBeGreaterThanZero" enabled="true" level="ERROR" enabled_by_default="true">
+-      <option name="composableFile" value="true" />
+-      <option name="previewFile" value="true" />
+-    </inspection_tool>
+-    <inspection_tool class="PreviewMultipleParameterProviders" enabled="true" level="ERROR" enabled_by_default="true">
+-      <option name="composableFile" value="true" />
+-      <option name="previewFile" value="true" />
+-    </inspection_tool>
+-    <inspection_tool class="PreviewMustBeTopLevelFunction" enabled="true" level="ERROR" enabled_by_default="true">
+-      <option name="composableFile" value="true" />
+-      <option name="previewFile" value="true" />
+-    </inspection_tool>
+-    <inspection_tool class="PreviewNeedsComposableAnnotation" enabled="true" level="ERROR" enabled_by_default="true">
+-      <option name="composableFile" value="true" />
+-      <option name="previewFile" value="true" />
+-    </inspection_tool>
+-    <inspection_tool class="PreviewNotSupportedInUnitTestFiles" enabled="true" level="ERROR" enabled_by_default="true">
+-      <option name="composableFile" value="true" />
+-      <option name="previewFile" value="true" />
+-    </inspection_tool>
+-    <inspection_tool class="PreviewPickerAnnotation" enabled="true" level="ERROR" enabled_by_default="true">
+-      <option name="composableFile" value="true" />
+-      <option name="previewFile" value="true" />
+-    </inspection_tool>
+-  </profile>
+-</component>
+\ No newline at end of file
+Index: app/src/main/java/es/unex/giss/asee/whichnews/view/WelcomeActivity.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package es.unex.giss.asee.whichnews.view\r\n\r\nimport android.os.Bundle\r\nimport androidx.appcompat.app.AppCompatActivity\r\nimport es.unex.giss.asee.whichnews.databinding.ActivityWelcomeBinding\r\n\r\nclass WelcomeActivity : AppCompatActivity() {\r\n    private lateinit var binding: ActivityWelcomeBinding\r\n    companion object{\r\n        val LOGIN_USER = \"LOGIN_USER\"\r\n    }\r\n    override fun onCreate(savedInstanceState: Bundle?) {\r\n        super.onCreate(savedInstanceState)\r\n\r\n        //view binding and set content view\r\n        binding = ActivityWelcomeBinding.inflate(layoutInflater) //se establece el layout de nuestra activity\r\n        setContentView(binding.root)\r\n\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/es/unex/giss/asee/whichnews/view/WelcomeActivity.kt b/app/src/main/java/es/unex/giss/asee/whichnews/view/WelcomeActivity.kt
+--- a/app/src/main/java/es/unex/giss/asee/whichnews/view/WelcomeActivity.kt	(revision 87e29ae44b4ef10d9562fb80b8cccb3533265928)
++++ b/app/src/main/java/es/unex/giss/asee/whichnews/view/WelcomeActivity.kt	(date 1699815394000)
+@@ -2,6 +2,7 @@
+ 
+ import android.os.Bundle
+ import androidx.appcompat.app.AppCompatActivity
++import es.unex.giss.asee.whichnews.data.models.User
+ import es.unex.giss.asee.whichnews.databinding.ActivityWelcomeBinding
+ 
+ class WelcomeActivity : AppCompatActivity() {
+@@ -15,6 +16,10 @@
+         //view binding and set content view
+         binding = ActivityWelcomeBinding.inflate(layoutInflater) //se establece el layout de nuestra activity
+         setContentView(binding.root)
++        val user = intent.getSerializableExtra(LOGIN_USER) as User
++        binding.textView2.text = "Welcome back, ${user.user}"
++        
++
+ 
+     }
+ }
+\ No newline at end of file
+Index: build.gradle.kts
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>// Top-level build file where you can add configuration options common to all sub-projects/modules.\r\nplugins {\r\n    id(\"com.android.application\") version \"8.1.1\" apply false\r\n    id(\"org.jetbrains.kotlin.android\") version \"1.9.10\" apply false\r\n    id(\"com.google.devtools.ksp\") version \"1.9.10-1.0.13\" apply false\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/build.gradle.kts b/build.gradle.kts
+--- a/build.gradle.kts	(revision 87e29ae44b4ef10d9562fb80b8cccb3533265928)
++++ b/build.gradle.kts	(date 1699790934000)
+@@ -1,6 +1,6 @@
+ // Top-level build file where you can add configuration options common to all sub-projects/modules.
+ plugins {
+     id("com.android.application") version "8.1.1" apply false
+-    id("org.jetbrains.kotlin.android") version "1.9.10" apply false
++    id("org.jetbrains.kotlin.android") version "1.9.0" apply false
+     id("com.google.devtools.ksp") version "1.9.10-1.0.13" apply false
+ }
+\ No newline at end of file
+Index: gradle/wrapper/gradle-wrapper.properties
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>#Mon Nov 06 10:51:42 CET 2023\r\ndistributionBase=GRADLE_USER_HOME\r\ndistributionPath=wrapper/dists\r\ndistributionUrl=https\\://services.gradle.org/distributions/gradle-8.0-bin.zip\r\nzipStoreBase=GRADLE_USER_HOME\r\nzipStorePath=wrapper/dists\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>ISO-8859-1
+===================================================================
+diff --git a/gradle/wrapper/gradle-wrapper.properties b/gradle/wrapper/gradle-wrapper.properties
+--- a/gradle/wrapper/gradle-wrapper.properties	(revision 87e29ae44b4ef10d9562fb80b8cccb3533265928)
++++ b/gradle/wrapper/gradle-wrapper.properties	(date 1699790934000)
+@@ -1,4 +1,4 @@
+-#Mon Nov 06 10:51:42 CET 2023
++#Tue Nov 07 22:12:52 CET 2023
+ distributionBase=GRADLE_USER_HOME
+ distributionPath=wrapper/dists
+ distributionUrl=https\://services.gradle.org/distributions/gradle-8.0-bin.zip
+Index: app/src/main/java/es/unex/giss/asee/whichnews/view/JoinActivity.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package es.unex.giss.asee.whichnews.view\r\n\r\nimport android.content.Intent\r\nimport android.os.Bundle\r\nimport android.util.Log\r\nimport android.widget.Toast\r\nimport androidx.appcompat.app.AppCompatActivity\r\nimport androidx.lifecycle.lifecycleScope\r\nimport es.unex.giss.asee.whichnews.databinding.ActivityJoinBinding\r\nimport kotlinx.coroutines.launch\r\n\r\nclass JoinActivity : AppCompatActivity() {\r\n\r\n    private lateinit var binding: ActivityJoinBinding\r\n\r\n    override fun onCreate(savedInstanceState: Bundle?) {\r\n        super.onCreate(savedInstanceState)\r\n\r\n        //view binding and set content view\r\n        binding = ActivityJoinBinding.inflate(layoutInflater) //se establece el layout de nuestra activity\r\n        setContentView(binding.root)\r\n\r\n        //views initialization and listeners\r\n        setUpUI()\r\n        setUpListeners()\r\n\r\n    }\r\n\r\n    private fun setUpUI() {\r\n        //get attributes from xml using binding\r\n    }\r\n\r\n    private fun setUpListeners() {\r\n\r\n\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/es/unex/giss/asee/whichnews/view/JoinActivity.kt b/app/src/main/java/es/unex/giss/asee/whichnews/view/JoinActivity.kt
+--- a/app/src/main/java/es/unex/giss/asee/whichnews/view/JoinActivity.kt	(revision 87e29ae44b4ef10d9562fb80b8cccb3533265928)
++++ b/app/src/main/java/es/unex/giss/asee/whichnews/view/JoinActivity.kt	(date 1699815394000)
+@@ -6,12 +6,16 @@
+ import android.widget.Toast
+ import androidx.appcompat.app.AppCompatActivity
+ import androidx.lifecycle.lifecycleScope
++import es.unex.giss.asee.whichnews.data.models.User
++import es.unex.giss.asee.whichnews.database.WhichNewsDatabase
+ import es.unex.giss.asee.whichnews.databinding.ActivityJoinBinding
++import es.unex.giss.asee.whichnews.utils.CredentialCheck
+ import kotlinx.coroutines.launch
+ 
+ class JoinActivity : AppCompatActivity() {
+ 
+     private lateinit var binding: ActivityJoinBinding
++    private lateinit var db: WhichNewsDatabase
+ 
+     override fun onCreate(savedInstanceState: Bundle?) {
+         super.onCreate(savedInstanceState)
+@@ -20,10 +24,12 @@
+         binding = ActivityJoinBinding.inflate(layoutInflater) //se establece el layout de nuestra activity
+         setContentView(binding.root)
+ 
++        //database instance reference
++        db = WhichNewsDatabase.getInstance(applicationContext)!!
++
+         //views initialization and listeners
+         setUpUI()
+         setUpListeners()
+-
+     }
+ 
+     private fun setUpUI() {
+@@ -31,7 +37,61 @@
+     }
+ 
+     private fun setUpListeners() {
++        with(binding) {
++            //Sign Up Button
++            btSign.setOnClickListener { joinUser() }
++
++        }
+ 
++    }
+ 
++    private fun navigateToHomeActivity(user: User) {
++        val intent = Intent(this, WelcomeActivity::class.java)
++        intent.putExtra("SIGNUP_USER", user)
++        startActivity(intent)
+     }
++
++    private fun notifyInvalidCredentials(msg: String) {
++        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
++    }
++
++    private fun joinUser() {
++        with(binding) {
++            val check = CredentialCheck.join(
++                etFirstname.text.toString(),
++                etSecondname.text.toString(),
++                etUser.text.toString(),
++                etEmail.text.toString(),
++                etPassword.text.toString(),
++                etRepeatpassword.text.toString()
++            )
++            if (check.fail) notifyInvalidCredentials(check.msg)
++            else {
++                lifecycleScope.launch{
++                    val user = User(
++                        null,
++                        etFirstname.text.toString(),
++                        etSecondname.text.toString(),
++                        etUser.text.toString(),
++                        etEmail.text.toString(),
++                        etPassword.text.toString()
++                    )
++
++                    val id = db?.userDao()?.insert(user)
++
++                    navigateToHomeActivity(
++                        User(
++                            null,
++                            etFirstname.text.toString(),
++                            etSecondname.text.toString(),
++                            etUser.text.toString(),
++                            etEmail.text.toString(),
++                            etPassword.text.toString()
++                        )
++                    )
++                }
++            }
++        }
++    }
++
+ }
+\ No newline at end of file
+Index: app/src/main/java/es/unex/giss/asee/whichnews/view/LoginActivity.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package es.unex.giss.asee.whichnews.view\r\n\r\nimport android.content.Intent\r\nimport android.os.Bundle\r\nimport android.util.Log\r\nimport android.widget.Toast\r\nimport androidx.activity.result.contract.ActivityResultContracts\r\nimport androidx.appcompat.app.AppCompatActivity\r\nimport androidx.lifecycle.lifecycleScope\r\nimport es.unex.giss.asee.whichnews.data.models.User\r\nimport es.unex.giss.asee.whichnews.database.WhichNewsDatabase\r\nimport es.unex.giss.asee.whichnews.databinding.ActivityLoginBinding\r\nimport es.unex.giss.asee.whichnews.utils.CredentialCheck\r\nimport kotlinx.coroutines.launch\r\n\r\nclass LoginActivity : AppCompatActivity() {\r\n\r\n    //latenit se utiliza para inicializar una variable más tarde\r\n    //binding sirve para conectar la capa de usuario con el backend\r\n    //en kotlin no se permiten variables nulas, en cuyo caso, hay que indicarlo expresamente\r\n    private lateinit var binding: ActivityLoginBinding\r\n    private lateinit var db: WhichNewsDatabase\r\n\r\n    private val responseLauncher =\r\n        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->\r\n            if (result.resultCode == RESULT_OK) {\r\n                //TODO get data from result and update IU\r\n                val name = \"\"\r\n                val password = \"\"\r\n                Toast.makeText(\r\n                    this@LoginActivity,\r\n                    \"New user ($name/$password) created\",\r\n                    Toast.LENGTH_SHORT\r\n                ).show()\r\n            }\r\n        }\r\n\r\n    override fun onCreate(savedInstanceState: Bundle?) {  //el primer método de ciclo de vida de un activity es el onCreate()\r\n        super.onCreate(savedInstanceState)\r\n\r\n        //view binding and set content view\r\n        binding = ActivityLoginBinding.inflate(layoutInflater) //se establece el layout de nuestra activity\r\n        setContentView(binding.root)\r\n\r\n        //database instance reference\r\n        db = WhichNewsDatabase.getInstance(applicationContext)!!\r\n\r\n        //views initialization and listeners\r\n        setUpUI() //configurar la interfaz de usuario, darle valores a las vistas que tenemos en la interfaz\r\n        setUpListeners() //configurar los listeners, es decir, por si hay que declarar algún manejador de algún evento sobre esa vistaç\r\n    }\r\n\r\n    private fun setUpUI() {\r\n        //get attributes from xml using binding\r\n        //no se inicializa nuestras vistas de ninguna manera\r\n    }\r\n\r\n    private fun setUpListeners() {\r\n        // With is used\r\n        with(binding) {\r\n            btLogin.setOnClickListener {checkLogin() }\r\n            btJoin.setOnClickListener {navigateToJoinActivity() }\r\n        }\r\n\r\n    }\r\n\r\n    private fun navigateToHomeActivity(user: User, msg: String) {\r\n\r\n        //Se crea un nuevo intent para ir de una pantalla a otra\r\n        val intent = Intent(this, WelcomeActivity::class.java)\r\n        intent.putExtra(WelcomeActivity.LOGIN_USER, user) //Le pasamos el usuario para que lo muestre por pantalla\r\n        startActivity(intent)\r\n    }\r\n\r\n    private fun navigateToJoinActivity() {\r\n        val intent = Intent(this, JoinActivity::class.java)\r\n        startActivity(intent)\r\n    }\r\n\r\n    private fun notifyInvalidCredentials(msg: String) {\r\n        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()\r\n    }\r\n\r\n    private fun checkLogin(){\r\n        val check = CredentialCheck.login(\r\n            binding.etUsername.text.toString(),\r\n            binding.etPassword.text.toString()\r\n        )\r\n        if (!check.fail){\r\n            lifecycleScope.launch{\r\n                val user = db?.userDao()?.findByName(binding.etUsername.text.toString())\r\n                if (user != null) {\r\n                    val check = CredentialCheck.passwordOk(binding.etPassword.text.toString(), user.password)\r\n                    if (check.fail) notifyInvalidCredentials(check.msg)\r\n                    else navigateToHomeActivity(user!!, check.msg)\r\n                }\r\n                else notifyInvalidCredentials(\"Invalid username\")\r\n            }\r\n        }\r\n        else notifyInvalidCredentials(check.msg)\r\n    }\r\n\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/es/unex/giss/asee/whichnews/view/LoginActivity.kt b/app/src/main/java/es/unex/giss/asee/whichnews/view/LoginActivity.kt
+--- a/app/src/main/java/es/unex/giss/asee/whichnews/view/LoginActivity.kt	(revision 87e29ae44b4ef10d9562fb80b8cccb3533265928)
++++ b/app/src/main/java/es/unex/giss/asee/whichnews/view/LoginActivity.kt	(date 1699815394000)
+@@ -60,6 +60,7 @@
+         with(binding) {
+             btLogin.setOnClickListener {checkLogin() }
+             btJoin.setOnClickListener {navigateToJoinActivity() }
++            btPasswordForget.setOnClickListener { navigateToForgetPasswordActivity() }
+         }
+ 
+     }
+@@ -71,6 +72,11 @@
+         intent.putExtra(WelcomeActivity.LOGIN_USER, user) //Le pasamos el usuario para que lo muestre por pantalla
+         startActivity(intent)
+     }
++
++    private fun navigateToForgetPasswordActivity(){
++        val intent = Intent(this, PasswordForgetActivity::class.java)
++        startActivity(intent)
++    }
+ 
+     private fun navigateToJoinActivity() {
+         val intent = Intent(this, JoinActivity::class.java)
+@@ -82,22 +88,22 @@
+     }
+ 
+     private fun checkLogin(){
+-        val check = CredentialCheck.login(
+-            binding.etUsername.text.toString(),
+-            binding.etPassword.text.toString()
+-        )
+-        if (!check.fail){
+-            lifecycleScope.launch{
+-                val user = db?.userDao()?.findByName(binding.etUsername.text.toString())
+-                if (user != null) {
+-                    val check = CredentialCheck.passwordOk(binding.etPassword.text.toString(), user.password)
+-                    if (check.fail) notifyInvalidCredentials(check.msg)
+-                    else navigateToHomeActivity(user!!, check.msg)
+-                }
+-                else notifyInvalidCredentials("Invalid username")
+-            }
+-        }
+-        else notifyInvalidCredentials(check.msg)
++            val check = CredentialCheck.login(
++                binding.etUsername.text.toString(),
++                binding.etPassword.text.toString()
++            )
++            if (!check.fail){
++                lifecycleScope.launch{
++                    val user = db?.userDao()?.findByName(binding.etUsername.text.toString())
++                    if (user != null) {
++                        val check = CredentialCheck.passwordOk(binding.etPassword.text.toString(), user.password)
++                        if (check.fail) notifyInvalidCredentials(check.msg)
++                        else navigateToHomeActivity(user!!, check.msg)
++                    }
++                    else notifyInvalidCredentials("Invalid username")
++                }
++            }
++            else notifyInvalidCredentials(check.msg)
+     }
+ 
+ }
+\ No newline at end of file
+Index: .idea/misc.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><project version=\"4\">\r\n  <component name=\"ExternalStorageConfigurationManager\" enabled=\"true\" />\r\n  <component name=\"ProjectRootManager\" version=\"2\" languageLevel=\"JDK_17\" default=\"true\" project-jdk-name=\"jbr-17\" project-jdk-type=\"JavaSDK\">\r\n    <output url=\"file://$PROJECT_DIR$/build/classes\" />\r\n  </component>\r\n  <component name=\"ProjectType\">\r\n    <option name=\"id\" value=\"Android\" />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/misc.xml b/.idea/misc.xml
+--- a/.idea/misc.xml	(revision 87e29ae44b4ef10d9562fb80b8cccb3533265928)
++++ b/.idea/misc.xml	(date 1699817688037)
+@@ -1,3 +1,4 @@
++<?xml version="1.0" encoding="UTF-8"?>
+ <project version="4">
+   <component name="ExternalStorageConfigurationManager" enabled="true" />
+   <component name="ProjectRootManager" version="2" languageLevel="JDK_17" default="true" project-jdk-name="jbr-17" project-jdk-type="JavaSDK">
+Index: app/src/main/AndroidManifest.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<manifest xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    xmlns:tools=\"http://schemas.android.com/tools\">\r\n\r\n    <application\r\n        android:allowBackup=\"true\"\r\n        android:dataExtractionRules=\"@xml/data_extraction_rules\"\r\n        android:fullBackupContent=\"@xml/backup_rules\"\r\n        android:icon=\"@mipmap/ic_launcher\"\r\n        android:label=\"@string/app_name\"\r\n        android:roundIcon=\"@mipmap/ic_launcher_round\"\r\n        android:supportsRtl=\"true\"\r\n        android:theme=\"@style/Theme.WhichNews\"\r\n        tools:targetApi=\"31\">\r\n        <activity\r\n            android:name=\".view.LoginActivity\"\r\n            android:exported=\"true\" >\r\n            <intent-filter>\r\n                <action android:name=\"android.intent.action.MAIN\" />\r\n\r\n                <category android:name=\"android.intent.category.LAUNCHER\" />\r\n            </intent-filter>\r\n        </activity>\r\n        <activity\r\n            android:name=\".view.JoinActivity\"\r\n            android:exported=\"false\" />\r\n        <activity\r\n            android:name=\".view.WelcomeActivity\"\r\n            android:exported=\"false\" />\r\n    </application>\r\n\r\n</manifest>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/AndroidManifest.xml b/app/src/main/AndroidManifest.xml
+--- a/app/src/main/AndroidManifest.xml	(revision 87e29ae44b4ef10d9562fb80b8cccb3533265928)
++++ b/app/src/main/AndroidManifest.xml	(date 1699815394000)
+@@ -13,8 +13,11 @@
+         android:theme="@style/Theme.WhichNews"
+         tools:targetApi="31">
+         <activity
++            android:name=".view.PasswordForgetActivity"
++            android:exported="false" />
++        <activity
+             android:name=".view.LoginActivity"
+-            android:exported="true" >
++            android:exported="true">
+             <intent-filter>
+                 <action android:name="android.intent.action.MAIN" />
+ 
+Index: .idea/kotlinc.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"KotlinJpsPluginSettings\">\r\n    <option name=\"version\" value=\"1.9.10\" />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/kotlinc.xml b/.idea/kotlinc.xml
+--- a/.idea/kotlinc.xml	(revision 87e29ae44b4ef10d9562fb80b8cccb3533265928)
++++ b/.idea/kotlinc.xml	(date 1699817688112)
+@@ -1,6 +1,6 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ <project version="4">
+   <component name="KotlinJpsPluginSettings">
+-    <option name="version" value="1.9.10" />
++    <option name="version" value="1.9.0" />
+   </component>
+ </project>
+\ No newline at end of file
+Index: .idea/gradle.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"GradleMigrationSettings\" migrationVersion=\"1\" />\r\n  <component name=\"GradleSettings\">\r\n    <option name=\"linkedExternalProjectsSettings\">\r\n      <GradleProjectSettings>\r\n        <option name=\"testRunner\" value=\"GRADLE\" />\r\n        <option name=\"distributionType\" value=\"DEFAULT_WRAPPED\" />\r\n        <option name=\"externalProjectPath\" value=\"$PROJECT_DIR$\" />\r\n        <option name=\"gradleJvm\" value=\"jbr-17\" />\r\n        <option name=\"modules\">\r\n          <set>\r\n            <option value=\"$PROJECT_DIR$\" />\r\n            <option value=\"$PROJECT_DIR$/app\" />\r\n          </set>\r\n        </option>\r\n      </GradleProjectSettings>\r\n    </option>\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/gradle.xml b/.idea/gradle.xml
+--- a/.idea/gradle.xml	(revision 87e29ae44b4ef10d9562fb80b8cccb3533265928)
++++ b/.idea/gradle.xml	(date 1699817688082)
+@@ -1,6 +1,5 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ <project version="4">
+-  <component name="GradleMigrationSettings" migrationVersion="1" />
+   <component name="GradleSettings">
+     <option name="linkedExternalProjectsSettings">
+       <GradleProjectSettings>
