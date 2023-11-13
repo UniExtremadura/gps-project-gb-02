@@ -22,9 +22,32 @@ class ReviewsActivity : AppCompatActivity() {
         // Inicializar RecyclerView
         val recyclerView = binding.recyclerViewReviews
         recyclerView.layoutManager = LinearLayoutManager(this)
+        // Configurar listeners
+        setUpListeners(recyclerView)
     }
 
+    private fun setUpListeners(recyclerView: RecyclerView) {
+        val etReview = binding.etReview
+        val btnSubmit = binding.btnSubmit
 
+        btnSubmit.setOnClickListener {
+            val reviewText = etReview.text.toString().trim()
+
+            if (isValidReview(reviewText)) {
+                // La reseña no es válida, mostrar un Toast con el mensaje de error
+                runOnUiThread {
+                    showToast("Reseña correcta.")
+                }
+                // Limpiar el campo de entrada después de enviar la reseña
+                etReview.text.clear()
+            } else {
+                // La reseña no es válida, mostrar un Toast con el mensaje de error
+                runOnUiThread {
+                    showToast("La reseña debe tener entre 1 y 100 caracteres.")
+                }
+            }
+        }
+    }
     private fun isValidReview(reviewText: String): Boolean {
         // Verificar que la reseña tenga al menos 1 carácter y menos de 100 caracteres
         return reviewText.length in 1..100
