@@ -6,7 +6,7 @@ import java.io.Serializable
 @Entity
 data class Review(
     @PrimaryKey(autoGenerate = true) val reviewId: Long,
-    // TODO: añadir el id de la noticia
+    val newsId: Long,
     val userId: Long,
     val username: String,
     val content: String,
