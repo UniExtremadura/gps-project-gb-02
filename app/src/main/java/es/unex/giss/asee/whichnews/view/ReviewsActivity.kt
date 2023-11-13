@@ -61,6 +61,8 @@ class ReviewsActivity : AppCompatActivity() {
                     // Insertar la reseña en la base de datos
                     reviewDao.insertReview(Review(0, userId, "nombre_de_usuario", reviewText))
 
+                    // Actualizar la lista de reseñas en el RecyclerView
+                    val updatedReviews = reviewDao.getAllReviews()
                     runOnUiThread {
                         recyclerView.adapter = ReviewsAdapter(updatedReviews)
                     }
