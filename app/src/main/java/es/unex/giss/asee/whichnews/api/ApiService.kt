@@ -8,12 +8,28 @@ import retrofit2.http.Query
 
 interface ApiService {
     @GET("top-headlines")
-    fun getTopHeadlines(
-        @Query("country") country: String? = null,
-        @Query("category") category: String? = null,
+    fun getNews(
+        @Query("apiKey") apiKey: String,
+        @Query("country") country: String,
+        @Query("category") category: String,
+        @Query("sources") sources: String,
+        @Query("q") q: String,
+        @Query("pageSize") pageSize: Int,
+        @Query("page") page: Int
+    ): Call<NewsResponse>
+
+    @GET("v2/everything")
+    fun getEverything(
+        @Query("q") query: String,
+        @Query("searchIn") searchIn: String? = null,
         @Query("sources") sources: String? = null,
-        @Query("q") query: String? = null,
-        @Query("pageSize") pageSize: Int = 20,
+        @Query("domains") domains: String? = null,
+        @Query("excludeDomains") excludeDomains: String? = null,
+        @Query("from") fromDate: String? = null,
+        @Query("to") toDate: String? = null,
+        @Query("language") language: String? = null,
+        @Query("sortBy") sortBy: String? = null,
+        @Query("pageSize") pageSize: Int = 100,
         @Query("page") page: Int = 1,
         @Query("apiKey") apiKey: String
     ): Call<NewsResponse>
