@@ -1,26 +1,35 @@
 package es.unex.giss.asee.whichnews.view.home
-
+import android.content.Context
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import es.unex.giss.asee.whichnews.R
+import androidx.fragment.app.Fragment
+import es.unex.giss.asee.whichnews.data.models.News
+import es.unex.giss.asee.whichnews.database.WhichNewsDatabase
+// import es.unex.giss.asee.whichnews.data.AppDatabase
+import es.unex.giss.asee.whichnews.databinding.FragmentTrendingBinding
+import es.unex.giss.asee.whichnews.view.cardnews.NewsAdapter
+import java.lang.RuntimeException
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [TrendingFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class TrendingFragment : Fragment() {
-    // TODO: Rename and change types of parameters
+
     private var param1: String? = null
     private var param2: String? = null
+
+    private lateinit var db: WhichNewsDatabase
+
+    private var _binding: FragmentTrendingBinding?=null
+    private val binding get() = _binding!!
+    private lateinit var adapter: NewsAdapter
+
+    private lateinit var listener: OnNewsClickListener
+    interface OnNewsClickListener {
+        fun onNewsClick(news: News, fragmentId: Int)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,27 +43,53 @@ class TrendingFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_trending, container, false)
+        // Utilizamos View Binding para inflar el diseño
+        _binding = FragmentTrendingBinding.inflate(inflater, container, false)
+
+        fetchDataAndUpdateUI()
+
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment TrendingFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            TrendingFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        db = WhichNewsDatabase.getInstance(context)!!
+        if(context is OnNewsClickListener){
+            listener = context
+        }else{
+            throw RuntimeException(context.toString() + " must implement onNewsClickListener")
+        }
     }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        // loadAndSetUpNewsFeed()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        //loadAndSetUpNewsFeed()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null // avoid memory leaks
+    }
+
+    private fun fetchDataAndUpdateUI() {
+        // Obtener datos de la base de datos local
+        //val newsLikeList = getNewsLikeDataFromDatabase()
+
+        // Puedes manipular los datos según tus necesidades aquí antes de mostrarlos en el RecyclerView
+
+        // Actualizar el RecyclerView con la lista combinada
+        // adapter = NewsAdapter(requireContext(), manipulatedNewsList)
+        //recyclerView.adapter = adapter
+    }
+
+    /*private fun getNewsLikeDataFromDatabase(): List<NewsLike> {
+        // Acceder a la base de datos local y obtener la lista de NewsLike
+        // val dao = AppDatabase.getInstance(requireContext()).newsLikeDao()
+        // return dao.getAllNewsLikes()
+    }*/
 }

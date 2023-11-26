@@ -4,16 +4,17 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import es.unex.giss.asee.whichnews.data.models.News
 import es.unex.giss.asee.whichnews.data.models.User
-import es.unex.giss.asee.whichnews.data.models.NewsLike
 import es.unex.giss.asee.whichnews.data.models.Review
+import es.unex.giss.asee.whichnews.data.models.Saved
+import es.unex.giss.asee.whichnews.data.models.UserNewsCrossRef
 
-@Database(entities = [User::class, NewsLike::class, Review::class], version = 3, exportSchema = false)
+@Database(entities = [User::class, Review::class, News::class, UserNewsCrossRef::class], version = 4, exportSchema = false)
 abstract class WhichNewsDatabase : RoomDatabase() {
     abstract fun userDao(): UserDao
-    abstract fun newsLikeDao(): NewsLikeDao
     abstract fun reviewDao(): ReviewDao
-
+    abstract fun newsDao(): NewsDao
     companion object {
         private var INSTANCE: WhichNewsDatabase? = null
 

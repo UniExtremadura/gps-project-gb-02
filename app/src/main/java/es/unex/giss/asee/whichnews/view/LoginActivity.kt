@@ -10,17 +10,17 @@ import androidx.lifecycle.lifecycleScope
 import es.unex.giss.asee.whichnews.data.models.User
 import es.unex.giss.asee.whichnews.database.WhichNewsDatabase
 import es.unex.giss.asee.whichnews.databinding.ActivityLoginBinding
+import es.unex.giss.asee.whichnews.login.UserManager
 import es.unex.giss.asee.whichnews.utils.CredentialCheck
+import es.unex.giss.asee.whichnews.view.home.HomeActivity
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class LoginActivity : AppCompatActivity() {
-
-    //latenit se utiliza para inicializar una variable más tarde
-    //binding sirve para conectar la capa de usuario con el backend
-    //en kotlin no se permiten variables nulas, en cuyo caso, hay que indicarlo expresamente
     private lateinit var binding: ActivityLoginBinding
-    private lateinit var db: WhichNewsDatabase
-
+    private val db: WhichNewsDatabase by lazy {
+        WhichNewsDatabase.getInstance(applicationContext)!!
+    }
     private val responseLauncher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == RESULT_OK) {
@@ -42,12 +42,10 @@ class LoginActivity : AppCompatActivity() {
         binding = ActivityLoginBinding.inflate(layoutInflater) //se establece el layout de nuestra activity
         setContentView(binding.root)
 
-        //database instance reference
-        db = WhichNewsDatabase.getInstance(applicationContext)!!
-
-        //views initialization and listeners
-        setUpUI() //configurar la interfaz de usuario, darle valores a las vistas que tenemos en la interfaz
-        setUpListeners() //configurar los listeners, es decir, por si hay que declarar algún manejador de algún evento sobre esa vistaç
+        //configurar la interfaz de usuario, darle valores a las vistas que tenemos en la interfaz
+        setUpUI()
+        // Configurar listeners
+        setUpListeners()
     }
 
     private fun setUpUI() {
@@ -66,12 +64,26 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun navigateToHomeActivity(user: User, msg: String) {
-
-        //Se crea un nuevo intent para ir de una pantalla a otra
         val intent = Intent(this, WelcomeActivity::class.java)
-        intent.putExtra(WelcomeActivity.LOGIN_USER, user) //Le pasamos el usuario para que lo muestre por pantalla
+        intent.putExtra(WelcomeActivity.LOGIN_USER, user)
+
+        // Iniciar WelcomeActivity y cerrarla después de un breve retraso
         startActivity(intent)
+        lifecycleScope.launch {
+            delay(2000) // Espera 2 segundos
+            finishWelcomeActivity()
+        }
     }
+
+    private fun finishWelcomeActivity() {
+        val welcomeActivity = this@LoginActivity
+        welcomeActivity.runOnUiThread {
+            welcomeActivity.finish()
+            // Iniciar MainPageActivity
+            startActivity(Intent(welcomeActivity, HomeActivity::class.java))
+        }
+    }
+
 
     private fun navigateToForgetPasswordActivity(){
         val intent = Intent(this, PasswordForgetActivity::class.java)
@@ -87,23 +99,31 @@ class LoginActivity : AppCompatActivity() {
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
     }
 
-    private fun checkLogin(){
-            val check = CredentialCheck.login(
-                binding.etUsername.text.toString(),
-                binding.etPassword.text.toString()
-            )
-            if (!check.fail){
-                lifecycleScope.launch{
-                    val user = db?.userDao()?.findByName(binding.etUsername.text.toString())
-                    if (user != null) {
-                        val check = CredentialCheck.passwordOk(binding.etPassword.text.toString(), user.password)
-                        if (check.fail) notifyInvalidCredentials(check.msg)
-                        else navigateToHomeActivity(user!!, check.msg)
-                    }
-                    else notifyInvalidCredentials("Invalid username")
-                }
+    private fun checkLogin() {
+        lifecycleScope.launch {
+            try {
+                val user = db.userDao().find(binding.etUsername.text.toString())
+                handleLoginResult(user)
+            } catch (e: Exception) {
+                notifyInvalidCredentials("Error during login")
+                Log.e("LoginActivity", "Error during login", e)
             }
-            else notifyInvalidCredentials(check.msg)
+        }
     }
 
+    private fun handleLoginResult(user: User?) {
+        if (user != null) {
+            val check = CredentialCheck.passwordOk(binding.etPassword.text.toString(), user.password)
+            if (check.fail) {
+                notifyInvalidCredentials(check.msg)
+            } else {
+                // Guardar el usuario actual en el objeto y en SharedPreferences
+                UserManager.saveCurrentUser(applicationContext, user)
+                // Ir a la pantalla principal
+                navigateToHomeActivity(user, check.msg)
+            }
+        } else {
+            notifyInvalidCredentials("Invalid username")
+        }
+    }
 }

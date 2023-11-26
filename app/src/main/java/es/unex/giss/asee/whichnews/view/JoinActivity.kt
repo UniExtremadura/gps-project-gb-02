@@ -70,10 +70,7 @@ class JoinActivity : AppCompatActivity() {
                 lifecycleScope.launch{
                     val user = User(
                         null,
-                        etFirstname.text.toString(),
-                        etSecondname.text.toString(),
                         etUser.text.toString(),
-                        etEmail.text.toString(),
                         etPassword.text.toString()
                     )
 
@@ -82,10 +79,7 @@ class JoinActivity : AppCompatActivity() {
                     navigateToHomeActivity(
                         User(
                             null,
-                            etFirstname.text.toString(),
-                            etSecondname.text.toString(),
                             etUser.text.toString(),
-                            etEmail.text.toString(),
                             etPassword.text.toString()
                         )
                     )

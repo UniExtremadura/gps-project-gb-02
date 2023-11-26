@@ -1,22 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+    <!-- NOTICIAS -->
     <item
-        android:id="@+id/action_news"
-        android:enabled="true"
-        android:icon="@drawable/news"
+        android:id="@+id/newsFragment"
         android:title="@string/news_option"
-        app:showAsAction="ifRoom" />
-    <item
-        android:id="@+id/action_trending"
+        android:icon="@drawable/news"
         android:enabled="true"
-        android:icon="@drawable/trending"
+        app:showAsAction="ifRoom" />
+
+    <!-- MÁS DESTACADAS -->
+    <item
+        android:id="@+id/trendingFragment"
         android:title="@string/trending_option"
-        app:showAsAction="ifRoom" />
-    <item
-        android:id="@+id/action_favorites"
+        android:icon="@drawable/trending"
         android:enabled="true"
-        android:icon="@drawable/favorite"
-        android:title="@string/favorites_option"
         app:showAsAction="ifRoom" />
+
+    <!-- FAVORITOS -->
+    <item
+        android:id="@+id/likesFragment"
+        android:title="@string/favorite_option"
+        android:icon="@drawable/favorite"
+        android:enabled="true"
+        app:showAsAction="ifRoom" />
+
+    <!-- RECIENTES -->
+    <item
+        android:id="@+id/recentFragment"
+        android:title="@string/recent_option"
+        android:icon="@drawable/ic_recent"
+        android:enabled="true"
+        app:showAsAction="ifRoom" />
+
 </menu>

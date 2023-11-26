@@ -3,9 +3,7 @@ package es.unex.giss.asee.whichnews.view
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import es.unex.giss.asee.whichnews.R
 import es.unex.giss.asee.whichnews.databinding.ActivityFilterBinding
-import es.unex.giss.asee.whichnews.databinding.ActivityLoginBinding
 
 class FilterActivity : AppCompatActivity() {
     private lateinit var binding: ActivityFilterBinding
@@ -22,10 +20,10 @@ class FilterActivity : AppCompatActivity() {
         setUpListeners()
     }
 
-    private fun setUpListeners(){
-        with(binding){
-            btApply.setOnClickListener{ SaveFilters() }
-
+    private fun setUpListeners() {
+        with(binding) {
+            btApply.setOnClickListener { SaveFilters() } // guardar la selección del usuario
+            ibClose.setOnClickListener { finish() } // cierre del filtro
         }
     }
 

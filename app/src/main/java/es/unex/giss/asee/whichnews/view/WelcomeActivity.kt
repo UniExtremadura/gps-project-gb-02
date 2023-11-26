@@ -1,25 +1,56 @@
 package es.unex.giss.asee.whichnews.view
 
+import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import es.unex.giss.asee.whichnews.data.models.User
 import es.unex.giss.asee.whichnews.databinding.ActivityWelcomeBinding
+import es.unex.giss.asee.whichnews.login.UserManager
+import es.unex.giss.asee.whichnews.view.home.HomeActivity
+import kotlinx.coroutines.launch
 
 class WelcomeActivity : AppCompatActivity() {
+
     private lateinit var binding: ActivityWelcomeBinding
-    companion object{
+
+    companion object {
         val LOGIN_USER = "LOGIN_USER"
+        const val DELAY_MILLIS = 2000L // Puedes ajustar el tiempo de retraso según sea necesario
     }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        //view binding and set content view
-        binding = ActivityWelcomeBinding.inflate(layoutInflater) //se establece el layout de nuestra activity
+        binding = ActivityWelcomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        val user = intent.getSerializableExtra(LOGIN_USER) as User
-        binding.textView2.text = "Welcome back, ${user.user}"
-        
 
+        // Restaurar el usuario actual desde SharedPreferences
+        lifecycleScope.launch {
+            var currentUser: User? = UserManager.loadCurrentUser(applicationContext)
 
+            if (currentUser == null) {
+                // No hay un usuario actual, ir a LoginActivity
+                startActivity(Intent(applicationContext, LoginActivity::class.java))
+                finish() // Cerrar WelcomeActivity si está abierta
+            } else {
+                // Hay un usuario actual, mostrar mensaje de bienvenida y cerrar WelcomeActivity después del retraso
+                binding.textView2.text = "Welcome back, ${currentUser.name}"
+
+                Handler(Looper.getMainLooper()).postDelayed({
+                    finishWelcomeActivity()
+                }, DELAY_MILLIS)
+            }
+        }
+    }
+
+    private fun finishWelcomeActivity() {
+        val welcomeActivity = this@WelcomeActivity
+        welcomeActivity.runOnUiThread {
+            welcomeActivity.finish()
+            // Iniciar HomeActivity
+            startActivity(Intent(welcomeActivity, HomeActivity::class.java))
+        }
     }
 }

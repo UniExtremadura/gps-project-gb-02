@@ -2,6 +2,7 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("com.google.devtools.ksp")
+    id("androidx.navigation.safeargs.kotlin")
 }
 
 android {
@@ -16,6 +17,9 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        // Clave API como un campo en BuildConfig
+        buildConfigField("String", "NEWS_API_KEY", "\"${"931cf5b1fe644332bd48555eb2a52432"}\"")
     }
 
     buildTypes {
@@ -39,6 +43,9 @@ android {
     }
     kotlinOptions {
         jvmTarget = "1.8"
+    }
+    buildFeatures{
+        buildConfig = true
     }
 }
 
@@ -93,4 +100,17 @@ dependencies {
 
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+
+    ////////////////////////////////////
+    /////////// RECYCLERVIEW ///////////
+    ////////////////////////////////////
+    implementation ("androidx.recyclerview:recyclerview:1.2.1")
+
+    ////////////////////////////////////
+    ////////////// PICASSO /////////////
+    ////////////////////////////////////
+    implementation ("com.github.bumptech.glide:glide:4.12.0")
+    annotationProcessor ("com.github.bumptech.glide:compiler:4.12.0")
+
+
 }
