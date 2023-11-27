@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/home_graphnav"
+    app:startDestination="@id/newsFragment">
+
+    <fragment
+        android:id="@+id/newsFragment"
+        android:name="es.unex.giss.asee.whichnews.view.home.NewsFragment"
+        android:label="fragment_news"
+        tools:layout="@layout/fragment_news">
+        <action
+            android:id="@+id/action_newsFragment_to_newsDetailFragment"
+            app:destination="@id/newsDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/trendingFragment"
+        android:name="es.unex.giss.asee.whichnews.view.home.TrendingFragment"
+        android:label="fragment_trending"
+        tools:layout="@layout/fragment_trending">
+        <action
+            android:id="@+id/action_trendingFragment_to_newsDetailFragment"
+            app:destination="@id/newsDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/likesFragment"
+        android:name="es.unex.giss.asee.whichnews.view.home.LikesFragment"
+        android:label="fragment_favorite"
+        tools:layout="@layout/fragment_likes">
+        <action
+            android:id="@+id/action_likesFragment_to_newsDetailFragment"
+            app:destination="@id/newsDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/recentFragment"
+        android:name="es.unex.giss.asee.whichnews.view.home.RecentFragment"
+        android:label="fragment_recent"
+        tools:layout="@layout/fragment_recent">
+        <action
+            android:id="@+id/action_recentFragment_to_newsDetailFragment"
+            app:destination="@id/newsDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/newsDetailFragment"
+        android:name="es.unex.giss.asee.whichnews.view.home.NewsDetailFragment"
+        android:label="fragment_news_detail"
+        tools:layout="@layout/fragment_news_detail" >
+        <argument
+            android:name="news"
+            app:argType="es.unex.giss.asee.whichnews.data.models.News" />
+        <action
+            android:id="@+id/action_newsDetailFragment_to_reviewsFragment"
+            app:destination="@id/reviewsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/historyFragment"
+        android:name="es.unex.giss.asee.whichnews.view.menu.HistoryFragment"
+        android:label="fragment_history"
+        tools:layout="@layout/fragment_history" >
+        <action
+            android:id="@+id/action_historyFragment_to_newsDetailFragment"
+            app:destination="@id/newsDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/reviewsFragment"
+        android:name="es.unex.giss.asee.whichnews.view.ReviewsFragment"
+        android:label="ReviewsFragment" >
+        <argument
+            android:name="news"
+            app:argType="es.unex.giss.asee.whichnews.data.models.News" />
+        </fragment>
+</navigation>
