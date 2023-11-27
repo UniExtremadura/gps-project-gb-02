@@ -81,7 +81,7 @@ class ReviewsFragment : Fragment() {
                         userId?.let { it1 ->
                             news.newsId?.let { it2 ->
                                 Review(null,
-                                    it1, it1, reviewText)
+                                    it2, it1, reviewText)
                             }
                         }?.let { it2 -> db.reviewDao().insertReview(it2) }
                         // Actualizar la lista de reseñas en el RecyclerView
